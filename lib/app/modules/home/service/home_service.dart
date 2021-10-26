@@ -6,16 +6,33 @@ import 'package:teste_ilia/app/shared/exception/public_message.dart';
 import 'package:teste_ilia/app/shared/util/api_key.dart';
 
 class HomeService {
-  
-  Future<List<Filmes>> getFilmes() async {
+
+  final Dio _dio = Dio(dioOptions);
+
+  Future<List<Filmes>> getFilmesPopular() async {
     try {
-      Response response = await Dio().get('https://api.themoviedb.org/3/movie/76341?api_key=${chaveApi}');
+      Response response = await _dio.get('/movie/popular');
       print(response.data);
-      return Filmes.fromJsonList(response.data);
+      return Filmes.fromJsonList(response.data['results']);
     } on DioError catch (e) {
       if (e.error is SocketException) {
         throw PublicMessageException('Verifique sua conexão');
       }
+      print(e);
+      throw PublicMessageException('Erro ao carregar dados');
+    }
+  }
+  
+  Future<List<Filmes>> getFilmesRated() async {
+    try {
+      Response response = await _dio.get('/movie/top_rated');
+      print(response.data);
+      return Filmes.fromJsonList(response.data['results']);
+    } on DioError catch (e) {
+      if (e.error is SocketException) {
+        throw PublicMessageException('Verifique sua conexão');
+      }
+      print(e);
       throw PublicMessageException('Erro ao carregar dados');
     }
   }

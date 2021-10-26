@@ -1,8 +1,10 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:teste_ilia/app/modules/home/controller/home_controller.dart';
 import 'package:teste_ilia/app/modules/home/models/filmes.dart';
 import 'package:teste_ilia/app/modules/home/service/home_service.dart';
 import 'package:teste_ilia/app/modules/home/widgets/card_filmes_widget.dart';
+import 'package:teste_ilia/app/modules/home/widgets/card_top_rated_widget.dart';
 import 'package:teste_ilia/app/shared/exception/public_message.dart';
 import 'package:teste_ilia/app/shared/widgets/shader_widget.dart';
 
@@ -19,18 +21,35 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    getFilmes();
+    getFilmesPopular();
+    getFilmesRated();
   }
 
-  getFilmes() async {
+  getFilmesPopular() async {
     try {
-      await _controller.getFilmes();
+      await _controller.getFilmesPopular();
     } on PublicMessageException catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(e.message),
         backgroundColor: Colors.red,
       ));
     }
+  }
+  getFilmesRated() async {
+    try {
+      await _controller.getFilmesRated();
+    } on PublicMessageException catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(e.message),
+        backgroundColor: Colors.red,
+      ));
+    }
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
   @override
   Widget build(BuildContext context) {
@@ -57,7 +76,7 @@ class _HomePageState extends State<HomePage> {
                       onPressed: (){},
                       iconSize: 30,
                       color: Colors.white, 
-                      icon: Icon(Icons.person)
+                      icon: Icon(Icons.search)
                     ),
                   )
                 ],
@@ -67,9 +86,53 @@ class _HomePageState extends State<HomePage> {
                 height: 20,
               ),
 
+              Text('Filmes Top Rated',
+                style: TextStyle(
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold
+                )
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                child: Container(
+                  height: 200,
+                  child: StreamBuilder<List<Filmes>>(
+                    stream: _controller.filmesRatedOut,
+                    builder: (context, snapshot) {
+                      if(!snapshot.hasData){
+                        return Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+                      List<Filmes> dados = snapshot.data;
+
+                      return CarouselSlider.builder(
+                        itemCount: dados.length, 
+                        itemBuilder: (context,index,i){
+                          return CardTopRatedWidget(dados[index]);
+                        }, 
+                        options: CarouselOptions(
+                          autoPlay: true,
+                          aspectRatio: 2.0,
+                          enlargeCenterPage: true,
+                        ),
+                      );
+                    }
+                  ),
+                ),
+              ),              
+              Text('Filmes populares',
+                style: TextStyle(
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold
+                )
+              ),
+              SizedBox(
+                height: 10,
+              ),
               Expanded(
                 child: StreamBuilder<List<Filmes>>(
-                  stream: _controller.filmesOut,
+                  stream: _controller.filmesPopularOut,
                   builder: (context, snapshot) {
                     if(!snapshot.hasData){
                       return Center(

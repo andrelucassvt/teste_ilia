@@ -6,6 +6,9 @@ import 'package:teste_ilia/app/modules/home/pages/detalhes/detalhes_page.dart';
 class CardFilmesWidget extends StatelessWidget {
   final Filmes model;
   CardFilmesWidget(this.model);
+
+  String get ImageURl => 'https://image.tmdb.org/t/p/w220_and_h330_face${model.posterPath}';
+  
   @override
   Widget build(BuildContext context) {
     return Hero(
@@ -25,7 +28,7 @@ class CardFilmesWidget extends StatelessWidget {
                 borderRadius: BorderRadius.circular(12),
                 image: DecorationImage(
                   fit: BoxFit.cover,
-                  image: NetworkImage(model.posterPath)
+                  image: NetworkImage(ImageURl)
                 )
               ),
               child: Column(

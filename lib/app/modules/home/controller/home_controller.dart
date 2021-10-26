@@ -10,17 +10,26 @@ class HomeController {
     this.service
   });
   
-  final _filmesController = StreamController<List<Filmes>>();
-  Sink<List<Filmes>> get filmesIn => _filmesController.sink;
-  Stream<List<Filmes>> get filmesOut => _filmesController.stream;
+  final _filmesPopularController = StreamController<List<Filmes>>();
+  Sink<List<Filmes>> get filmesPopularIn => _filmesPopularController.sink;
+  Stream<List<Filmes>> get filmesPopularOut => _filmesPopularController.stream;
 
-  getFilmes() async {
-    List<Filmes> dados = await service.getFilmes();
-    filmesIn.add(dados);
+  final _filmesRatedController = StreamController<List<Filmes>>();
+  Sink<List<Filmes>> get filmesRatedIn => _filmesRatedController.sink;
+  Stream<List<Filmes>> get filmesRatedOut => _filmesRatedController.stream;
+
+  getFilmesPopular() async {
+    List<Filmes> dados = await service.getFilmesPopular();
+    filmesPopularIn.add(dados);
+  }
+  getFilmesRated() async {
+    List<Filmes> dados = await service.getFilmesRated();
+    filmesRatedIn.add(dados);
   }
 
 
   dispose(){
-    _filmesController.close();
+    _filmesPopularController.close();
+    _filmesRatedController.close();
   }
 }
