@@ -18,7 +18,7 @@ class CardFilmesWidget extends StatelessWidget {
         child: InkWell(
           onTap: (){
             Navigator.of(context).push(
-              MaterialPageRoute(builder: (_) => DetalhesPage())
+              MaterialPageRoute(builder: (_) => DetalhesPage(model))
             );
           },
           child: Padding(
@@ -26,6 +26,7 @@ class CardFilmesWidget extends StatelessWidget {
             child: Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12),
+                border: Border.all(width: 2),
                 image: DecorationImage(
                   fit: BoxFit.cover,
                   image: NetworkImage(ImageURl)
