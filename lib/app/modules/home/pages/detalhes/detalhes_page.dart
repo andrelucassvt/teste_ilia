@@ -1,5 +1,7 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:teste_ilia/app/modules/home/models/filmes.dart';
+import 'package:teste_ilia/app/shared/util/image_url_base.dart';
 class DetalhesPage extends StatefulWidget {
   final Filmes model;
   DetalhesPage(this.model);
@@ -8,7 +10,6 @@ class DetalhesPage extends StatefulWidget {
 }
 class DetalhesPageState extends State <DetalhesPage> {
 
- String get ImageURl => 'https://image.tmdb.org/t/p/w220_and_h330_face${widget.model.posterPath}';
  
  @override
   Widget build(BuildContext context) {
@@ -30,7 +31,7 @@ class DetalhesPageState extends State <DetalhesPage> {
                         borderRadius: BorderRadius.circular(32),
                         image: DecorationImage(
                           fit: BoxFit.cover,
-                          image: NetworkImage(ImageURl)
+                          image: NetworkImage(ImageUrlBase.imageUrlbase(widget.model.posterPath))
                         )
                       ),   
                     )
@@ -67,10 +68,11 @@ class DetalhesPageState extends State <DetalhesPage> {
                   Positioned(
                     bottom: 10,
                     left: 20,
-                    child: Text(
+                    child: AutoSizeText(
                       widget.model.originalTitle,
+                      maxLines: 1,
                       style: TextStyle(
-                        fontSize: 32,
+                        fontSize: 20,
                         color: Colors.white,
                         inherit: false,
                         fontWeight: FontWeight.bold
@@ -84,7 +86,7 @@ class DetalhesPageState extends State <DetalhesPage> {
                 height: 30,
               ),
               Text(
-                'Sinopse',
+                'OverView',
                 style: TextStyle(
                   fontSize: 30,
                 )
@@ -107,6 +109,11 @@ class DetalhesPageState extends State <DetalhesPage> {
             ],
           ),
         ),
+      ),
+
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: (){}, 
+        label: Text('Reproduzir trailer')
       ),
     );
   }

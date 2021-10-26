@@ -2,12 +2,11 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:teste_ilia/app/modules/home/models/filmes.dart';
 import 'package:teste_ilia/app/modules/home/pages/detalhes/detalhes_page.dart';
+import 'package:teste_ilia/app/shared/util/image_url_base.dart';
 
 class CardFilmesWidget extends StatelessWidget {
   final Filmes model;
   CardFilmesWidget(this.model);
-
-  String get ImageURl => 'https://image.tmdb.org/t/p/w220_and_h330_face${model.posterPath}';
   
   @override
   Widget build(BuildContext context) {
@@ -29,7 +28,7 @@ class CardFilmesWidget extends StatelessWidget {
                 border: Border.all(width: 2),
                 image: DecorationImage(
                   fit: BoxFit.cover,
-                  image: NetworkImage(ImageURl)
+                  image: NetworkImage(ImageUrlBase.imageUrlbase(model.posterPath))
                 )
               ),
               child: Column(

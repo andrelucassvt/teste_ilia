@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:teste_ilia/app/modules/home/models/filmes.dart';
 import 'package:teste_ilia/app/modules/home/pages/detalhes/detalhes_page.dart';
+import 'package:teste_ilia/app/shared/util/image_url_base.dart';
 
 class CardTopRatedWidget extends StatelessWidget {
   final Filmes model;
 
   CardTopRatedWidget(this.model);
 
-  String get ImageURl => 'https://image.tmdb.org/t/p/w220_and_h330_face${model.posterPath}';
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,7 @@ class CardTopRatedWidget extends StatelessWidget {
               borderRadius: BorderRadius.all(Radius.circular(5.0)),
               child: Stack(
                 children: <Widget>[
-                  Image.network(ImageURl, fit: BoxFit.cover, width: 1000.0),
+                  Image.network(ImageUrlBase.imageUrlbase(model.posterPath), fit: BoxFit.cover, width: 1000.0),
                   Positioned(
                     bottom: 0.0,
                     left: 0.0,
