@@ -1,0 +1,1 @@
+const chaveApi = '6562e07867d94a1f2e4ad56098be46b0';
