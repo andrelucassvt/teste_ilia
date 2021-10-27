@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:teste_ilia/app/modules/home/models/filmes.dart';
 import 'package:teste_ilia/app/shared/util/image_url_base.dart';
+import 'package:url_launcher/url_launcher.dart';
 class DetalhesPage extends StatefulWidget {
   final Filmes model;
   DetalhesPage(this.model);
@@ -112,9 +113,16 @@ class DetalhesPageState extends State <DetalhesPage> {
       ),
 
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: (){}, 
+        onPressed: () {
+          _youtubePlayerTrailer(widget.model.originalTitle);
+        }, 
         label: Text('Reproduzir trailer')
       ),
     );
+  }
+
+  _youtubePlayerTrailer(String titleSeach) async {
+    String urlSeach = 'https://www.youtube.com/results?search_query=$titleSeach+trailer';
+    await launch(urlSeach);
   }
 }

@@ -31,32 +31,49 @@ class CardFilmesWidget extends StatelessWidget {
                   image: NetworkImage(ImageUrlBase.imageUrlbase(model.posterPath))
                 )
               ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
+              child: Stack(
                 children: [
-                   Padding(
-                     padding: const EdgeInsets.only(top: 140),
-                     child: Container(
-                       padding: EdgeInsets.symmetric(horizontal: 50,vertical: 10),
-                       decoration: BoxDecoration(
-                         color: Colors.white,
-                         borderRadius: BorderRadius.only(
-                           topLeft: Radius.circular(15),
-                           topRight: Radius.circular(15)
-                         )
-                       ),
-                       child: AutoSizeText(
-                         model.originalTitle,
-                         maxLines: 1,
-                         textAlign: TextAlign.center,
-                         style: TextStyle(
-                           fontSize: 20,
-                           color: Colors.black,
-                           fontWeight: FontWeight.bold
-                         ),
-                       ),
-                     ),
-                   )
+
+                  Positioned(
+                    right: 10,
+                    top: 10,
+                    child: Container(
+                      padding: EdgeInsets.all(5),
+                      decoration: BoxDecoration(
+                        color: Colors.white70,
+                        borderRadius: BorderRadius.circular(20)
+                      ),
+                      child: Row(
+                        children: [
+                          Text(model.voteAverage.toString()),
+                          Icon(Icons.star)
+                        ],
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 140,left: 10,right: 10),
+                    child: Container(
+                      padding: EdgeInsets.symmetric(horizontal: 50,vertical: 10),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(15),
+                          topRight: Radius.circular(15)
+                        )
+                      ),
+                      child: AutoSizeText(
+                        model.originalTitle,
+                        maxLines: 1,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold
+                        ),
+                      ),
+                    ),
+                  )
                 ],
               )
             ),

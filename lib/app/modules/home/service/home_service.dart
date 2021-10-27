@@ -1,5 +1,5 @@
 import 'dart:io';
-
+import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:teste_ilia/app/modules/home/models/filmes.dart';
 import 'package:teste_ilia/app/shared/exception/public_message.dart';
@@ -12,13 +12,11 @@ class HomeService {
   Future<List<Filmes>> getFilmesPopular() async {
     try {
       Response response = await _dio.get('/movie/popular');
-      print(response.data);
       return Filmes.fromJsonList(response.data['results']);
     } on DioError catch (e) {
       if (e.error is SocketException) {
         throw PublicMessageException('Verifique sua conexão');
       }
-      print(e);
       throw PublicMessageException('Erro ao carregar dados');
     }
   }

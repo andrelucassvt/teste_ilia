@@ -22,7 +22,7 @@ class Filmes {
   String tagline;
   String title;
   bool video;
-  //double voteAverage;
+  double voteAverage;
   int voteCount;
 
   Filmes(
@@ -49,7 +49,7 @@ class Filmes {
       this.tagline,
       this.title,
       this.video,
-      //this.voteAverage,
+      this.voteAverage,
       this.voteCount});
 
   Filmes.fromJson(Map<String, dynamic> json) {
@@ -98,7 +98,7 @@ class Filmes {
     tagline = json['tagline'];
     title = json['title'];
     video = json['video'];
-    //voteAverage = json['vote_average'];
+    voteAverage = json['vote_average'] is int ? (json['vote_average'] as int).toDouble() : json['vote_average'];
     voteCount = json['vote_count'];
   }
 

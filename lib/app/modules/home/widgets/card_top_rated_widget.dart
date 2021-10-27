@@ -29,6 +29,23 @@ class CardTopRatedWidget extends StatelessWidget {
                 children: <Widget>[
                   Image.network(ImageUrlBase.imageUrlbase(model.posterPath), fit: BoxFit.cover, width: 1000.0),
                   Positioned(
+                    right: 10,
+                    top: 10,
+                    child: Container(
+                      padding: EdgeInsets.all(5),
+                      decoration: BoxDecoration(
+                        color: Colors.white70,
+                        borderRadius: BorderRadius.circular(20)
+                      ),
+                      child: Row(
+                        children: [
+                          Text(model.voteAverage.toString()),
+                          Icon(Icons.star)
+                        ],
+                      ),
+                    ),
+                  ),
+                  Positioned(
                     bottom: 0.0,
                     left: 0.0,
                     right: 0.0,

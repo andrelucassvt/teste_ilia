@@ -26,7 +26,11 @@ class HomeController {
     List<Filmes> dados = await service.getFilmesRated();
     filmesRatedIn.add(dados);
   }
-
+  
+  getFilmesSeachPopular() async {
+    List<Filmes> dados = await service.getFilmesPopular();
+    return dados;
+  }
 
   dispose(){
     _filmesPopularController.close();

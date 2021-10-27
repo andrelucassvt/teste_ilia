@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:teste_ilia/app/modules/home/controller/home_controller.dart';
 import 'package:teste_ilia/app/modules/home/models/filmes.dart';
+import 'package:teste_ilia/app/modules/home/pages/seach/seach_page.dart';
 import 'package:teste_ilia/app/modules/home/service/home_service.dart';
 import 'package:teste_ilia/app/modules/home/widgets/card_filmes_widget.dart';
 import 'package:teste_ilia/app/modules/home/widgets/card_top_rated_widget.dart';
@@ -73,7 +74,11 @@ class _HomePageState extends State<HomePage> {
                   ),
                   ShaderWidget(
                     child: IconButton(
-                      onPressed: (){},
+                      onPressed: (){
+                        Navigator.of(context).push(
+                          MaterialPageRoute(builder: (_) => PesquisaPage())
+                        );
+                      },
                       iconSize: 30,
                       color: Colors.white, 
                       icon: Icon(Icons.search)
